@@ -1,15 +1,15 @@
 import zarr
 import numpy as np
 import json
-#import tqdm
 from skimage.measure import label
 
 dataset_name = "17_1A_extended_2119-2535"
 bouton_zarr = f'{dataset_name}_converted_2_consolidated.zarr'
 zarr_container = f'/nrs/funke/sheridana/hausser/paintera_ingest/new_test_vols_2_14_22/{dataset_name}_converted_2_consolidated.zarr'
 
+
 def create_object_to_area_json(zarr_container, object_type, area_type):
-    
+
     if area_type == 'neuron':
         print("Reading neuron segmentation...")
         area_objects = zarr.open(zarr_container, 'r')['volumes/neurons'][:, :, :]
@@ -38,7 +38,7 @@ def create_object_to_area_json(zarr_container, object_type, area_type):
     # co-sort unique_vals and counts by counts
     pairs = zip(*sorted(zip(counts, unique_vals), reverse=True))
     counts, unique_vals = [list(pair) for pair in pairs]
-    
+
     object_list = []
     obj_ids = set()
     for value in unique_vals:
@@ -56,13 +56,9 @@ def create_object_to_area_json(zarr_container, object_type, area_type):
         obj_dict['volume_vx'] = obj_volume
 
         obj_dict[area_type+'_id'] = area_obj_id
-        #object_to_neuron[int(obj_id)] = int(neuron_id)
 
         object_list.append(obj_dict)
         obj_ids.add(obj_id)
-
-    print(object_list)
-
 
     data = {}
     data[object_type+"s"] = object_list

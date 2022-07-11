@@ -104,8 +104,3 @@ if __name__ == '__main__':
         f = zarr.open(basename, 'a')
         f['volumes/boutons'] = boutons.astype(np.uint64)
         f['volumes/boutons'].attrs['resolution'] = (93, 62, 62)
-
-    # for each vesicle (from the JSON):
-        # look up bouton ID in 'boutons'
-        # if 0, continue
-        # if != 0, store bouton ID for this vesicle in JSON
