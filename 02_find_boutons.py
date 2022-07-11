@@ -6,8 +6,10 @@ import numpy as np
 import time
 import json
 
+
+dataset_name = "17_1A_extended_2119-2535"
 zarr_containers = [
-    '/nrs/funke/sheridana/hausser/paintera_ingest/new_test_vols_2_14_22/17_1A_extended_2119-2535_converted_2_consolidated.zarr'
+    f"/nrs/funke/sheridana/hausser/paintera_ingest/new_test_vols_2_14_22/{dataset_name}_converted_2_consolidated.zarr"
 ]
 
 def erode_dilate(mask, erode_radius=15, dilate_radius=15):
@@ -89,7 +91,7 @@ def find_boutons(zarr_container):
     return all_boutons, bouton_to_neuron
 
 def create_bouton_to_neuron_json(bouton_to_neuron, zarr_container):
-    with open(zarr_container.split('/')[-1][:-5]+"_bouton_to_neuron.json", "w") as json_out:
+    with open("temp/"+dataset_name+"_boutons.json", "w") as json_out:
         json.dump(bouton_to_neuron, json_out)
 
 if __name__ == '__main__':

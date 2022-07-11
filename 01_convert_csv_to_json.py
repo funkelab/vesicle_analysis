@@ -2,13 +2,16 @@ import csv
 import json
 import glob
 
-vesicle_list = []
 
 csvfilenames = glob.glob('*.csv')
 
 for csvfilename in csvfilenames:
 
     print(f"Converting {csvfilename}...")
+
+    json_data = {}
+
+    vesicle_list = []
 
     csvfile = open(csvfilename)
 
@@ -39,5 +42,5 @@ for csvfilename in csvfilenames:
 
     json_data = { 'vesicles': vesicle_list }
 
-    with open(csvfilename.replace('.csv', '.json'), "w") as json_out:
-        json_out.write(json.dumps(json_data, indent=4))
+    with open('temp/'+csvfilename.replace('.csv', '.json'), "w") as json_out:
+        json.dump(json_data, json_out, indent=4)
